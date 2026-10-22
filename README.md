@@ -9,4 +9,4 @@ Profesora: Maria Angela LEON
 |--|--|
 |Sixto Calderón, Edwar Manuel |1200984|
 |Sixto Calderón, Gretell Virginia |1202890|
-|Ayala Ocampo, Alan |-----|
+|Ayala Ocampo, Alan |1196870|
