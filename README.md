@@ -257,4 +257,4 @@ selección de asientos y reportes, con persistencia en archivos JSON.
   <td align="center" valign="middle"><b>Cancelar reservas</b></td>
 </tr>
 </tbody>
-</table>                                                                                                                                                               Una reserva con pagos registrados no puede   eliminarse. Cualquier corrección se registra como nota de ajuste, que queda   vinculada a la reserva y deja trazabilidad.                                                                                                                                                               | CU-15 |    Cancelar   reservas      |
+</table>                                                                                                                                                                                                                                                                                                                           
