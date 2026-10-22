@@ -9,4 +9,18 @@ Profesora: Maria Angela LEON
 |--|--|
 |Sixto Calderón, Edwar Manuel |1200984|
 |Sixto Calderón, Gretell Virginia |1202890|
-|Ayala Ocampo, Alan |-----|
+|Ayala Ocampo, Alan |1196870|
+
+# Sistema de Gestion y Ventas de Tour en una agencia de turismo
+
+> Trabajo Practico Obligatorio . **POO** . UADE
+
+Sistema de gestión y venta de tours de una agencia de turismo por consola (CLI), desarrollado en
+JAVA . Maneja usuarios con roles, catálogo de tours, venta de de tours con
+selección de asientos y reportes, con persistencia en archivos JSON.
+
+---
+
+## Funcionalidades
+
+- **Roles con menus propios:** 
