@@ -8,5 +8,4 @@ Profesora: Maria Angela LEON
 |Nombre del alumno|Legajo|
 |--|--|
 |Sixto Calderón, Edwar Manuel |1200984|
-|Sixto Calderón, Gretell Virginia |1202890|
 |Ayala Ocampo, Alan |1196870|
