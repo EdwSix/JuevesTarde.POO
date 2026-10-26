@@ -1,0 +1,144 @@
+@startuml
+left to right direction
+skinparam classAttributeIconSize 0
+
+abstract class Tour {
+  codigo
+  nombre
+  descripcion
+  duracion
+  cupo
+  +obtenerRequisitos()
+  +obtenerPrecio()
+}
+
+class TourUrbano
+class TourCultural
+class TourNaturaleza
+
+Tour <|-- TourUrbano
+Tour <|-- TourCultural
+Tour <|-- TourNaturaleza
+
+class Actividad {
+  tema
+  duracion
+  +obtenerRequisitos()
+}
+
+class Salida {
+  dia
+  hora
+  duracion
+  capacidad
+  +asignarGuia()
+  +emitirLista()
+  +cambiarEstado()
+}
+
+class Reserva {
+  numero
+  fecha
+  estado
+  total
+  +calcularSaldo()
+  +cancelar()
+  +reactivar()
+}
+
+class Pasajero {
+  documento
+  nombre
+  telefono
+  email
+  restricciones
+  edad
+  +cumpleRequisitos()
+}
+
+class Pago {
+  fecha
+  importe
+  metodo
+  estado
+  +registrarPago()
+}
+
+class ServicioAdicional {
+  nombre
+  precio
+  obligatorio
+  +calcularImporte()
+}
+
+class Tarificador {
+  +calcularPrecio()
+}
+
+interface EstrategiaPrecio {
+  +calcularPrecio()
+}
+
+class PoliticaCancelacion {
+  +calcularReembolso()
+  +permiteCancelacion()
+}
+
+abstract class Empleado {
+  legajo
+  nombre
+  documento
+  telefono
+}
+
+class Conductor {
+  licencia
+  capacidad
+}
+
+class Administrador {
+  permisos
+}
+
+abstract class Vehiculo {
+  patente
+  capacidad
+  tipo
+}
+
+class LiquidacionGuia {
+  sueldo
+  dias
+  ventasAdicionales
+  +calcular()
+}
+
+class ControlReserva {
+  +crearReserva()
+  +cancelarReserva()
+  +asignarRecursos()
+}
+
+class RepositorioArchivos {
+  +guardar()
+  +buscar()
+}
+
+Tour "1" *-- "1..*" Actividad : incluye
+Tour "1" --> "1..*" Tarificador : calcula tarifas
+Tour "1" --> "0..*" Salida : programa
+Salida "1" --> "0..*" Reserva : recibe
+Cliente "1" --> "0..*" Reserva : realiza
+Reserva "1" *-- "1..*" Pasajero : registra
+Reserva "1" *-- "0..*" Pago : contiene
+Pasajero "1" --> "0..*" ServicioAdicional : solicita
+Salida "1" --> "1" Empleado : guía asignado
+Salida "1" --> "1" Vehiculo : vehículo asignado
+
+Empleado <|-- Conductor
+Empleado <|-- Administrador
+
+Tarificador ..> EstrategiaPrecio : usa
+ControlReserva ..> PoliticaCancelacion : aplica
+ControlReserva ..> RepositorioArchivos : consulta
+@enduml
