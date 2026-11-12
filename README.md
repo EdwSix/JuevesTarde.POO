@@ -8,7 +8,7 @@ Profesora: Maria Angela LEON
 |Nombre del alumno|Legajo|
 |--|--|
 |Sixto Calderón, Edwar Manuel |1200984|
-|Ayala Ocampo, Alan |1196870|
+|||
 
 # Descripción del Trabajo Practico
 La propuesta elegida es la de Agencia de Turismo "Rumbo Sur" que organiza tours y 
