@@ -8,79 +8,57 @@ Profesora: Maria Angela LEON
 |Nombre del alumno| Legajo  |
 |--|---------|
 |Sixto Calderón, Edwar Manuel | 1200984 |
-|Sixto Calderón, Gretell Virginia | 1202890 |
-|Ayala Ocampo, Alan | 1196870 |
 
-# Diagramas de Casos de Uso
-@startuml
-left to right direction
+## Descripción del sistema
 
-' Definición de actores
-actor Administrador
-actor Coordinador
-actor Vendedor
-actor Cliente
-actor "Administración" as Administracion
-actor Planificador
-actor Guía
+Rumbo Sur es una aplicación de consola para administrar tours y sus actividades, programar salidas, asignar guías y vehículos, registrar clientes y reservas, incorporar pasajeros, pagos y servicios adicionales, calcular tarifas y gestionar cancelaciones. La implementación sigue el diagrama UML provisto y está organizada en capas: `modelo`, `repositorio`, `servicio`, `estrategia`, `controlador` y `vista`.
 
-' Límite del sistema y casos de uso
-rectangle "Sistema de gestión - Agencia Rumbo Sur " {
-usecase "CU-01 Gestionar catálogo" as CU1
-usecase "CU-02 Programar salida" as CU2
-usecase "CU-03 Registrar cliente" as CU3
-usecase "CU-04 Crear reserva" as CU4
-usecase "CU-05 Calcular precio" as CU5
-usecase "CU-06 Registrar pagos" as CU6
-usecase "CU-07 Contratar adicionales" as CU7
-usecase "CU-08 Modificar/cancelar reserva" as CU8
-usecase "CU-09 Asignar guía y vehículo" as CU9
-usecase "CU-10 Emitir lista de pasajeros" as CU10
-usecase "CU-11 Cerrar salida" as CU11
-usecase "CU-12 Liquidar honorarios" as CU12
-usecase "CU-13 Emitir reportes" as CU13
-usecase "CU-14 Controlar cupo mínimo" as CU14
-usecase "CU-15 Anular por saldo impago" as CU15
-usecase "CU-16 Reemplazar pasajero" as CU16
-usecase "CU-17 Consultar itinerario" as CU17
-}
+## Requisitos
 
-' Relaciones de Administrador
-Administrador -- CU1
-Administrador -- CU6
-Administrador -- CU12
-Administrador -- CU13
+- JDK 17 o superior instalado.
+- Consola de comandos (PowerShell en Windows, Terminal en macOS/Linux).
+- No requiere bibliotecas externas ni Maven/Gradle.
 
-' Relaciones de Coordinador
-Coordinador -- CU2
-Coordinador -- CU9
-Coordinador -- CU10
-Coordinador -- CU11
-Coordinador -- CU12
+## Instrucciones de ejecución
 
-' Relaciones de Vendedor
-Vendedor -- CU3
-Vendedor -- CU4
-Vendedor -- CU6
-Vendedor -- CU7
-Vendedor -- CU8
-Vendedor -- CU16
+Ubicarse en la carpeta `RumboSur-Etapa2` y compilar las clases:
 
-' Relaciones de Cliente
-Cliente -- CU4
-Cliente -- CU7
-Cliente -- CU8
-Cliente -- CU16
-Cliente -- CU17
+**Windows PowerShell**
 
-' Relaciones de Planificador
-Planificador -- CU14
-Planificador -- CU15
+```powershell
+$files = Get-ChildItem -Path src -Recurse -Filter '*.java' | ForEach-Object { $_.FullName }
+javac -d out $files
+java -cp out vista.MenuPrincipal
+```
 
-' Relaciones de Guía
-Guía -- CU17
+**macOS/Linux**
 
-' Relaciones de Inclusión (Include)
-CU4 ..> CU5 : <<include>>
+```bash
+mkdir -p out
+javac -d out $(find src -name '*.java')
+java -cp out vista.MenuPrincipal
+```
 
-@enduml
+Para ejecutar las pruebas autocontenidas de reglas de negocio, compilar con los mismos comandos y correr:
+
+```text
+java -cp out pruebas.PruebasNegocio
+```
+
+La prueba comprueba cálculo de tarifa y saldo, persistencia local, cancelación anticipada y una validación de datos. El menú ofrece una demostración del cálculo de una tarifa.
+
+## Correspondencia con el UML
+
+Se implementan las clases del diagrama: `Tour` abstracta y sus subclases `TourUrbano`, `TourCultural` y `TourNaturaleza`; `Actividad`; `Salida`; `Empleado` abstracta y sus subclases `Conductor` y `Administrador`; `Vehiculo`; `Cliente`; `Reserva`; `Pasajero`; `ServicioAdicional`; `Pago`; `Tarificador`; `EstrategiaPrecio`; `ControlReserva`; `PoliticaCancelacion`; `RepositorioArchivos`; y `LiquidacionGuia`.
+
+Las asociaciones se representan con referencias y colecciones: un tour incluye actividades y programa salidas; una salida tiene guía y vehículo; un cliente realiza reservas; una reserva recibe una salida y contiene pasajeros, pagos y servicios adicionales; un pasajero solicita servicios; y el tarifador calcula importes mediante una estrategia. Las colecciones reflejan las multiplicidades del diagrama. Los atributos y métodos visibles se preservan; constructores y accesores complementarios permiten crear y utilizar los objetos en Java.
+
+## Validaciones y supuestos
+
+- Los campos requeridos no pueden estar vacíos; duración, cupo, capacidad y edad deben ser positivos; importes y precios no pueden ser negativos.
+- La reserva controla el cupo de pasajeros y verifica requisitos declarados por las actividades.
+- Se supone reembolso total al cancelar con siete o más días de anticipación y sin reembolso en un plazo menor. El UML no define el umbral ni porcentajes, por eso este criterio queda documentado como supuesto.
+- La tarifa base es el precio del tour por pasajero; `EstrategiaPrecio` permite reemplazar ese cálculo.
+- El UML no modela disponibilidad temporal de guías/vehículos ni configuración de la política; no se agregaron entidades de dominio para cubrir esos datos.
+- `RepositorioArchivos` guarda objetos serializados localmente como decisión técnica de persistencia.
+
