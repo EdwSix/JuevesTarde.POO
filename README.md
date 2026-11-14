@@ -5,6 +5,7 @@ del segundo cuatrimestre de 2026
 Profesora: Maria Angela LEON
 
 # Integrantes del grupo
+
 |Nombre del alumno| Legajo  |
 |--|---------|
 |Sixto Calderón, Edwar Manuel | 1200984 |
